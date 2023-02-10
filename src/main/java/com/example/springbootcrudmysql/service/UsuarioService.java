@@ -23,7 +23,8 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> buscarPorId(String id){
-        return Optional.ofNullable(usuarioRepository.findById(id).get());
+        Optional<Usuario> x = this.usuarioRepository.findById(id);
+        return x;
     }
 
     public Optional<Usuario> buscarPorEmail(String email){
