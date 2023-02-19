@@ -25,17 +25,20 @@ public class UsuarioController {
             List<Usuario> userList = this.usuarioService.listaTodosUsuarios();
             if (!userList.isEmpty()) {
                 map.put("status", 1);
+                map.put("httpStatus", HttpStatus.OK.value());
                 map.put("data", userList);
                 return new ResponseEntity<>(map, HttpStatus.OK);
             } else {
                 map.clear();
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Dados não encontrados");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
         }catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
@@ -49,16 +52,19 @@ public class UsuarioController {
             if (valida.isEmpty()) {
                 usuarioService.salvar(usuario);
                 map.put("status", 1);
+                map.put("httpStatus", HttpStatus.CREATED.value());
                 map.put("message", "O registro foi salvo com sucesso!");
                 return new ResponseEntity<>(map, HttpStatus.CREATED);
             } else {
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Login já existente!");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
         }catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
@@ -71,17 +77,20 @@ public class UsuarioController {
             Optional<Usuario> usuario = usuarioService.buscarPorId(id);
             if(usuario.isPresent()) {
                 map.put("status", 1);
+                map.put("httpStatus", HttpStatus.OK.value());
                 map.put("data", usuario);
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }else{
                 map.clear();
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Dados não encontrados");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
         } catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
@@ -95,11 +104,13 @@ public class UsuarioController {
             if(usuario.isPresent()) {
                 usuarioService.deletar(usuario.get());
                 map.put("status", 1);
+                map.put("httpStatus", HttpStatus.OK.value());
                 map.put("message", "Registro deletado com sucesso!!");
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }else {
                 map.clear();
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Dados não encontrados");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
@@ -107,6 +118,7 @@ public class UsuarioController {
         } catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
@@ -119,17 +131,20 @@ public class UsuarioController {
             Optional<Usuario> usuario = usuarioService.buscarPorEmail(email);
             if(usuario.isPresent()) {
                 map.put("status", 1);
+                map.put("httpStatus", HttpStatus.OK.value());
                 map.put("data", usuario.get());
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }else{
                 map.clear();
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Dados não encontrados");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
         } catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
@@ -150,17 +165,20 @@ public class UsuarioController {
                     _usuario.setCidade(usuarioData.getCidade());
                     usuarioService.salvar(_usuario);
                     map.put("status", 1);
+                    map.put("httpStatus", HttpStatus.OK.value());
                     map.put("message", "Registro atualizado com sucesso!!");
                     return new ResponseEntity<>(map, HttpStatus.OK);
             }else{
                 map.clear();
                 map.put("status", 0);
+                map.put("httpStatus", HttpStatus.NOT_FOUND.value());
                 map.put("message", "Dados não encontrados");
                 return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
             }
         } catch (Exception ex) {
             map.clear();
             map.put("status", 0);
+            map.put("httpStatus", HttpStatus.EXPECTATION_FAILED.value());
             map.put("message", "Falha no Sistema");
             return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
         }
